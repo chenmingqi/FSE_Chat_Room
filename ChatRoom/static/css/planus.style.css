@@ -1,0 +1,15 @@
+/**
+Theme Name: PlanusWP v2.0
+Theme Description: PlanusWP is a ona-page premium Wordpress for creative freelancers or angencies.
+Author:        Silviu Stefu
+Author URI:    http://pixelglow.ro
+Description:   Planus is a clean and minimal one page theme to display your work.
+Version:       2.0
+License:       GNU General Public License v2 or later
+License URI:   http://www.gnu.org/licenses/gpl-2.0.html
+*/
+
+@import url('css/bootstrap.css');
+@import url('css/style.css');
+@import url('css/prettyPhoto.css');
+@import url('css/bxslider.css');

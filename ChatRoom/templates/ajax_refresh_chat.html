@@ -1,0 +1,30 @@
+{% if newchats %}
+{% for chat in newchats %}
+    <div id="chat_div" style="margin-bottom:15px;">
+      <div class="grumble" style="">
+          <div class="span8">
+            <div class="row">
+              <div class="span8">
+                <h2 style="float: left;"><strong>{{ chat.author }}</strong></h2>
+              </div>
+                <p style="color:grey; float: right;margin-top: 15px;">
+                 <i class="icon-calendar"></i> {{ chat.post_date }}
+                </p>
+            </div>
+            <div class="row">
+
+              <div class="span6">
+                <p style="margin-left: 15px;">
+                    {{ chat.content }}
+                </p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="span8">
+                <p></p>
+              </div>
+            </div>
+          </div>
+        </div>
+  {% endfor %}
+{% endif %}

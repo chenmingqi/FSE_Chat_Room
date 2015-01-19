@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block body %}
+<!-- Custom styles for this template -->
+<style>
+	#main_body{
+		margin-left:10%;
+		margin-right:10%;
+	}
+  .grumble{
+    border-radius: 5px;
+    background-color: #EEEDEA;
+    margin-top: 15px;
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-bottom: 8px;
+    padding-left: 30px;
+    padding-right:25px;
+  }
+
+</style>
+  <body style="background-color:black;">
+    <div id="main_body" class="row show-grid" style="width:50%;margin-left:25%;margin-top:5%;background-color:white;border-radius:8px;padding-top:12px; margin-bottom:40px;">
+      <div class="col-md-9 right-block" style="margin-left: 8%;width: 85%;">
+      <h4 style="color:#f0ad4e"><strong>{{ user.username }}</strong></h4>
+      <form method="POST">
+      <textarea name="content" class="form-control" placeholder="What's been bothering you? " cols="40" rows="3" ></textarea>
+      <button type="submit" class="btn btn-warning" style="margin-bottom:10px; margin-top:10px; margin-right:20px; float:right;">Post</button>
+      {% csrf_token %}
+      </form>
+
+      <h4 style="color:grey; margin-top:55px;"> Chat Room</h4>
+    <!--Chats start -->
+     <input type="hidden" id="last_updated" value="{{ last_updated }}">
+    {% for chat in chats %}
+    <div id="chat_div" style="margin-bottom:40px;">
+      <div class="grumble" style="">
+          <div class="span8">
+            <div class="row">
+              <div class="span8">
+                <h2 style="float: left;"><strong>{{ chat.author }}</strong></h2>
+              </div>
+                <p style="color:grey; float: right;margin-top: 15px;">
+                 <i class="icon-calendar"></i> {{ chat.post_date }}
+                </p>
+            </div>
+            <div class="row">
+
+              <div class="span6">      
+                <p style="margin-left: 15px;">
+                    {{ chat.content }}
+                </p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="span8">
+                <p></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+        <div id="new_ajax_chat">
+        </div>
+        <!-- end of chats-->
+
+      </div>
+    </div>
+  </body>
+  </html>
+
+    <script>
+var maxid = $("#last_updated").val()
+localStorage.setItem("maxid",maxid)
+function refresh_ajax(){
+    $.ajax({
+      type: "GET",
+      url: "/ajax_refresh/"+localStorage.getItem("maxid"),
+      context: document.body,
+      data:{}
+    }).done(function(data) {
+      console.log(data);
+      if(data != "null"){
+          $("#new_ajax_chat").append(data);
+          $.get( "/max_chat_id", function( data ) {
+               localStorage.setItem("maxid",data);
+          });
+      }else{
+
+      }
+    });
+}
+setInterval(refresh_ajax,3000);
+</script>
+{% endblock %}
+
